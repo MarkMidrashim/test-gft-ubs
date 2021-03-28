@@ -1,0 +1,23 @@
+package br.com.lacd.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import br.com.lacd.model.Product;
+import br.com.lacd.model.repositories.ProductRepository;
+
+@Service
+public class ProductService {
+
+	/* DI */
+
+	@Autowired
+	private ProductRepository repository;
+	
+	/* METHODS */
+	
+	public Product getProduct(Long id) {
+		Product prod = repository.findById(id).get();
+		return prod;
+	}
+}

@@ -1,0 +1,23 @@
+package br.com.lacd.services;
+
+import org.springframework.stereotype.Service;
+
+import br.com.lacd.model.File;
+
+@Service
+public class FileProcessorService implements Runnable {
+
+	private File filetoProcess;
+	
+	public FileProcessorService(File file) {
+		this.filetoProcess = file;
+	}
+	
+	public void run() {
+		processFile();
+	}
+	
+	protected void processFile() {
+		
+	}
+}

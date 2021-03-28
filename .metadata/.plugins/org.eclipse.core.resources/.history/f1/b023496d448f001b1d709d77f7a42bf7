@@ -1,0 +1,8 @@
+package br.com.lacd.controllers;
+
+@Api(value="ProductController", tags= {"ProductController"})
+@RestController
+@RequestMapping("/api/v1/product/")
+public class ProductController {
+
+}

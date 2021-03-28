@@ -1,0 +1,28 @@
+package br.com.lacd.config;
+
+public class SwaggerConfig {
+
+	@Bean
+	public Docket api() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.select()
+				.apis(RequestHandlerSelectors.basePackage("com.receba"))
+				.paths(PathSelectors.any())
+				.build()
+				.apiInfo(apiInfo());
+	}
+
+	private ApiInfo apiInfo() {
+		return new ApiInfo(
+				"RESTf API Receba", 
+				"Descrição de API Receba", 
+				"1.0.0", 
+				"Termos de Serviço", 
+				new Contact("Marcos Franco", "https://github.com/MarkMidrashim", "marcosfranco.developer@gmail.com"), 
+				"Termos de Licença", 
+				"URL Termos de Licença",
+				Collections.emptyList()
+			);
+	}
+	
+}

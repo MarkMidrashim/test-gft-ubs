@@ -1,0 +1,5 @@
+package br.com.lacd.model.repositories;
+
+public class ProductRepository {
+
+}

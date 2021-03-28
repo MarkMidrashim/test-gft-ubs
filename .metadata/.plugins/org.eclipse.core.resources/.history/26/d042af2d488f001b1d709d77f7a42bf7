@@ -1,0 +1,26 @@
+package br.com.lacd.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.lacd.services.FileStorageService;
+import br.com.lacd.services.ProductService;
+import io.swagger.annotations.Api;
+
+@Api(value="ProductController", tags= {"ProductController"})
+@RestController
+@RequestMapping("/api/v1/product/")
+public class ProductController {
+
+	/* DI */
+	
+	@Autowired
+	private ProductService productService;
+	
+	@Autowired
+	private FileStorageService fileStorageService;
+	
+	/* ACTIONS */
+	
+}

@@ -1,0 +1,8 @@
+package br.com.lacd.services;
+
+@Service
+public class ProductService {
+
+	
+	
+}

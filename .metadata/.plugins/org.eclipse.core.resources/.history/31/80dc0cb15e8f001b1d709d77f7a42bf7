@@ -1,0 +1,71 @@
+package br.com.lacd.services;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import br.com.lacd.model.DataList;
+import br.com.lacd.model.Product;
+import br.com.lacd.model.repositories.ProductRepository;
+
+@Service
+public class FileProcessorService {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(FileProcessorService.class);
+	
+	@Autowired
+	private ProductRepository repository;
+	
+	@Autowired
+	private FileStorageService fileStorageService;
+	
+	@Async
+    public CompletableFuture<List<Product>> registryProducts(final MultipartFile file) throws Exception {
+		final long start = System.currentTimeMillis();
+		
+		List<Product> prods = parseJsonToObject(file);
+		LOGGER.info("Saving a list of cars of size {} records", prods.size());
+		
+		prods = repository.saveAll(prods);
+		
+		LOGGER.info("Elapsed time: {}", (System.currentTimeMillis() - start));
+		return CompletableFuture.completedFuture(prods);
+    }
+
+	/**
+	 * Método responsável por converter um json para objeto Produto
+	 * @param file
+	 * @return
+	 */
+    private List<Product> parseJsonToObject(final MultipartFile file) throws Exception {
+		final List<Product> prods = new ArrayList<>();
+
+		try {
+			final ObjectMapper objMapper = new ObjectMapper();
+			DataList dataList= objMapper.readValue(
+				new File(fileStorageService.getFilePath(StringUtils.cleanPath(file.getOriginalFilename()))), 
+				DataList.class
+			);
+			
+			dataList.getData().stream().map(product -> prods.add(product));
+		} catch(final IOException e) {
+		    LOGGER.error("Failed to parse CSV file {}", e);
+		    throw new Exception("Failed to parse CSV file {}", e);
+		}
+		
+		return prods;
+    }
+
+}
