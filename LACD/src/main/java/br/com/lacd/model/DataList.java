@@ -3,11 +3,15 @@ package br.com.lacd.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class DataList implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	/* CONSTRUCTOR */
+	
+	public DataList() {}
 	
 	public DataList(List<Product> data) {
 		this.data = data;
@@ -15,6 +19,7 @@ public class DataList implements Serializable {
 	
 	/* PROPERTIES */
 	
+	@JsonProperty("data")
 	private List<Product> data;
 	
 	/* GETTERS & SETTERS */

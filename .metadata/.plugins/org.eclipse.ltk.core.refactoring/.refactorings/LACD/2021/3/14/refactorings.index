@@ -1,2 +1,5 @@
 1616891222967	Rename type 'DataList'
 1616891929723	Rename type 'DataFile'
+1616896376892	Rename type 'ProductCustomDeserialize'
+1616896543659	Delete element
+1616897522869	Rename package 'br.com.lacd.model.deserializations'

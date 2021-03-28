@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,13 +54,14 @@ public class FileProcessorService {
 		final List<Product> prods = new ArrayList<>();
 
 		try {
-			final ObjectMapper objMapper = new ObjectMapper();
-			DataList dataList= objMapper.readValue(
+			final ObjectMapper mapper = new ObjectMapper();
+			DataList dataList = mapper.readValue(
 				new File(fileStorageService.getFilePath(StringUtils.cleanPath(file.getOriginalFilename()))), 
 				DataList.class
 			);
 			
-			dataList.getData().stream().map(product -> prods.add(product));
+			List<Product> products = dataList.getData();
+			products.stream().collect(Collectors.toCollection(() -> prods));
 		} catch(final IOException e) {
 		    LOGGER.error("Failed to parse JSON file {}", e);
 		    throw new Exception("Failed to parse JSON file {}", e);

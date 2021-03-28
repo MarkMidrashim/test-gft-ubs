@@ -3,15 +3,8 @@ package br.com.lacd.model;
 import java.io.Serializable;
 
 public class File implements Serializable {
-
-/* PROPERTIES */
 	
 	private static final long serialVersionUID = 1L;
-	
-	private String fileName;
-	private String fileDownloadUri;
-	private String fileType;
-	private Long size;
 	
 	/* CONSTRUCTOR */
 
@@ -23,6 +16,15 @@ public class File implements Serializable {
 		this.fileType = fileType;
 		this.size = size;
 	}
+	
+	/* PROPERTIES */
+	
+	private String fileName;
+	private String fileDownloadUri;
+	private String fileType;
+	private Long size;
+	
+	/* GETTERS & SETTERS */
 
 	/**
 	 * @return the fileName

@@ -1,5 +1,8 @@
 package br.com.lacd.controllers;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import br.com.lacd.model.Product;
 import br.com.lacd.model.repositories.ProductRepository;
 import br.com.lacd.services.FileProcessorService;
+import br.com.lacd.services.FileStorageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -30,6 +34,9 @@ public class ProductController {
 	@Autowired
 	private FileProcessorService fileProcessorService;
 	
+	@Autowired
+	private FileStorageService fileStorageService;
+	
 	/* ACTIONS */
 	
 	@ApiOperation(value="Find product by id")
@@ -43,9 +50,19 @@ public class ProductController {
 	@PostMapping(value="/uploadFiles", produces = {"application/json", "application/xml"})
 	public ResponseEntity<?> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
 		try {
-            for(final MultipartFile file: files) {
-            	fileProcessorService.registryProducts(file);
-            }
+			Arrays.asList(files)
+				.stream()
+				.map(file -> {
+					try {
+						fileStorageService.registryFile(file);
+						fileProcessorService.registryProducts(file);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					return file;
+				})
+				.collect(Collectors.toList());
+			
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch(final Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
