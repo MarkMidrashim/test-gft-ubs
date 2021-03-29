@@ -29,9 +29,9 @@ services:
         environment:
             TZ: America/Sao_Paulo
             SPRING_BOOT_ENVIRONMENT: Production
-            SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/receba_main
-            SPRING_DATASOURCE_USERNAME: receba
-            SPRING_DATASOURCE_PASSWORD: Receba2021@Main
+            SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/lacd
+            SPRING_DATASOURCE_USERNAME: gftubs
+            SPRING_DATASOURCE_PASSWORD: UBS@2021
         volumes:
             - ./LACD:/LACD
             - ~/.m2:/root/.m2
