@@ -17,7 +17,12 @@ Projeto para test UBS (Ler, Armazenar, Calcular Dados)
 ### Execução e Acesso
 Para executar o projeto é necessário instalar o Docker. Caso possua instalado, acesse a raiz do projeto, e execute o comando:
 ```Bash
-docker-compose -d --build
+docker-compose up -d --build
+```
+
+Caso queira parar a execução do projeto, execute:
+```Bash
+docker-compose down -v
 ```
 
 <br>

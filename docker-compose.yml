@@ -25,7 +25,7 @@ services:
         command: mvn clean spring-boot:run
         restart: on-failure
         build: ./Docker/java
-        working_dir: /Backend
+        working_dir: /LACD
         environment:
             TZ: America/Sao_Paulo
             SPRING_BOOT_ENVIRONMENT: Production
@@ -33,7 +33,7 @@ services:
             SPRING_DATASOURCE_USERNAME: receba
             SPRING_DATASOURCE_PASSWORD: Receba2021@Main
         volumes:
-            - ./Backend:/Backend
+            - ./LACD:/LACD
             - ~/.m2:/root/.m2
         ports:
             - "8080:8080"
