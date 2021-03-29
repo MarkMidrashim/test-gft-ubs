@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 
-import br.com.lacd.model.Product;
+import br.com.lacd.entities.Product;
 
 public class ProductDeserializer extends JsonDeserializer<Product> {
 

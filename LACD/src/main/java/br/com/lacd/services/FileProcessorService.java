@@ -17,8 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.lacd.model.DataList;
-import br.com.lacd.model.Product;
+import br.com.lacd.entities.DataList;
+import br.com.lacd.entities.Product;
 import br.com.lacd.model.repositories.ProductRepository;
 
 @Service
@@ -31,6 +31,8 @@ public class FileProcessorService {
 	
 	@Autowired
 	private FileStorageService fileStorageService;
+	
+	/* METHODS */
 	
 	@Async
     public CompletableFuture<List<Product>> registryProducts(final MultipartFile file) throws Exception {
@@ -49,6 +51,7 @@ public class FileProcessorService {
 	 * Método responsável por converter um json para objeto Produto
 	 * @param file
 	 * @return
+	 * @throws
 	 */
     private List<Product> parseJsonToObject(final MultipartFile file) throws Exception {
 		final List<Product> prods = new ArrayList<>();
@@ -61,7 +64,7 @@ public class FileProcessorService {
 			);
 			
 			List<Product> products = dataList.getData();
-			products.stream().collect(Collectors.toCollection(() -> prods));
+			products.stream().distinct().collect(Collectors.toCollection(() -> prods));
 		} catch(final IOException e) {
 		    LOGGER.error("Failed to parse JSON file {}", e);
 		    throw new Exception("Failed to parse JSON file {}", e);

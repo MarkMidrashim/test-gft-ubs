@@ -3,3 +3,7 @@
 1616896376892	Rename type 'ProductCustomDeserialize'
 1616896543659	Delete element
 1616897522869	Rename package 'br.com.lacd.model.deserializations'
+1616953692284	Rename package 'br.com.lacd.model'
+1616954114275	Delete element
+1616956628378	Delete element
+1617034654566	Rename type 'Logistic'

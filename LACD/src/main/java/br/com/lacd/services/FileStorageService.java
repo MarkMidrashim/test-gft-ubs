@@ -14,9 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.lacd.config.FileStorageConfig;
+import br.com.lacd.entities.File;
 import br.com.lacd.exception.FileStorageException;
 import br.com.lacd.exception.MyFileNotFoundException;
-import br.com.lacd.model.File;
 
 @Service
 public class FileStorageService {
@@ -38,7 +38,7 @@ public class FileStorageService {
 		String filename = StringUtils.cleanPath(file.getOriginalFilename());
 		try {
 			if (filename.contains("..")) {
-				throw new FileStorageException("Srry! Filename contains invalid path sequence " + filename);
+				throw new FileStorageException("Sorry! Filename contains invalid path sequence " + filename);
 			}
 			
 			Path targetLocation = this.fileStorageLocation.resolve(filename);
@@ -52,7 +52,7 @@ public class FileStorageService {
 	public File registryFile(MultipartFile file) {
 		String filename = storageFile(file);
 		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-				.path("/api/v1/file/downloadFile/")
+				.path("/api/v1/file/download/")
 				.path(filename)
 				.toUriString();
 

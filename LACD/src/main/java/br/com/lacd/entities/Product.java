@@ -1,4 +1,4 @@
-package br.com.lacd.model;
+package br.com.lacd.entities;
 
 import java.io.Serializable;
 
