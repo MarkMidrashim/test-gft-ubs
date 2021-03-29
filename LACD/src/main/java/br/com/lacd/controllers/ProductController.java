@@ -45,13 +45,6 @@ public class ProductController {
 	
 	/* ACTIONS */
 	
-	@ApiOperation(value="Find product by id")
-	@GetMapping(value="/{id}", produces = {"application/json", "application/xml"})
-	public ResponseEntity<Product> findById(@PathVariable Long id) {
-		Product product = repository.findById(id).get();
-		return ResponseEntity.ok(product);
-	}
-	
 	@ApiOperation(value="Find product by product name")
 	@GetMapping(value="/findByProduct/{productName}", produces = {"application/json", "application/xml"})
 	public ResponseEntity<List<Product>> findByProduct(@PathVariable String productName) {
